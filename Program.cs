@@ -17,26 +17,30 @@ namespace console_test
             {
                 Console.WriteLine(line);
             }
+            Console.WriteLine("How many entries do you have?");
+            string number = Console.ReadLine();
 
-            Console.WriteLine("Enter what you would like to add:");
-            // get a string from user input
-            string input = Console.ReadLine();
+            Input(number);
 
-            // create an array of legnth 1 for the inputted string
-            // added \n to ensure a new line each time
-            string[] writeLines = new string[1] { $"\n{input}" };
-
-            //call function Write with the array
-             Write(writeLines);
         }
-        //using async due to append all text being asyncrhonous
-        public static async void Write(string[] writeLines)
+
+        public static void Input(string number)
         {
-            // write each line to the file (only ever one in this case)
-            foreach (string line in writeLines)
+            int inputNumber = Convert.ToInt16(number);
+            List<string> Lines = new List<string>();
+            Console.WriteLine("Enter what you would like to add:");
+            for (int i = 0; i < inputNumber; i++)
             {
-                await File.AppendAllTextAsync("./file.txt", line);
+                Console.WriteLine(">>");
+                string input = Console.ReadLine();
+                Lines.Add(input);
             }
+            Write(Lines);
+        }
+        public static void Write(List<string> Lines)
+        {
+
+            File.AppendAllLines("./file.txt", Lines);
 
 
         }
